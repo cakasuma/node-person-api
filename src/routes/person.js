@@ -18,4 +18,36 @@ router.post('/person', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.get('/person', (req, res) => {
+    if (!req.query.length) {
+        PersonModel.find().then(doc => res.json(doc))
+            .catch(err => res.status(500).json(err))
+    } else {
+        PersonModel.findOne({
+            email: req.query.email,
+        }).then(doc => res.json(doc))
+            .catch(err => res.status(500).json(err))
+    }
+})
+
+router.put('/person', (req, res) => {
+    if (!req.query.email) res.status(400).send('Missing URL parameter email')
+
+    PersonModel.findOneAndUpdate({
+        email: req.query.email,
+    }, req.body, {
+        new: true,
+    }).then(doc => res.json(doc))
+      .catch(err => res.status(500).json(err))
+})
+
+router.delete('/person', (req, res) => {
+    if (!req.query.email) res.status(400).send('Missing URL parameter email')
+
+    PersonModel.findOneAndRemove({
+        email: req.query.email,
+    }).then(doc => res.json(doc))
+      .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
