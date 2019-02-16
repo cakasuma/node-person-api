@@ -13,7 +13,8 @@ let PersonSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-    }
+    },
+    age: String,
 })
 
 module.exports = mongoose.model('Person', PersonSchema)
