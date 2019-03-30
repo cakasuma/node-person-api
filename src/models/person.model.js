@@ -1,11 +1,6 @@
 let mongoose = require('mongoose')
 
-const server = 'ds137605.mlab.com:37605'
-const database = 'persondb'
-const user = 'cakasuma'
-const password = 'cakasuma15951'
-
-mongoose.connect(`mongodb://${user}:${password}@${server}/${database}`)
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}/${process.env.DB_DATABASE}`)
 
 let PersonSchema = new mongoose.Schema({
     name: String,
